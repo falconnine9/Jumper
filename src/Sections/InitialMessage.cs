@@ -31,7 +31,12 @@ class InitialMessage
                 iteration = 0;
                 
                 Console.SetCursorPosition(0, 0);
-                Console.WriteLine("Please set your console font size to 5 and put it in full screen. Press space once you're ready");
+                Console.WriteLine(
+                    "Please set your console font size to 5 and put it in full screen. " +
+                    "Press space once you're ready. " +
+                    "Once the game has ended, you may have to resize it back to 16 " +
+                    "to be able to see your results"
+                );
             }
 
             if (Keyboard.IsKeyPressed(ConsoleKey.Spacebar)) {
@@ -41,5 +46,7 @@ class InitialMessage
 
             iteration++;
         }
+
+        Keyboard.ResetKeyboardState();
     }
 }

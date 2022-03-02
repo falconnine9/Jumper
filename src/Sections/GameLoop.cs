@@ -5,6 +5,8 @@
  * shooting from the sides
  */
 
+using System.Diagnostics;
+
 using Jumper.Graphics;
 using Jumper.Utils;
 
@@ -14,51 +16,53 @@ class GameLoop
 {
     private static bool _failed = false;
 
-    private static int _balloon_x = Constants.FrameWidth / 2 - Texture.Balloon.Width / 2;
-    private static int _balloon_y = Constants.FrameHeight / 2 - Texture.Balloon.Height / 2;
+    private static int _balloonX = Constants.FrameWidth / 2 - Texture.Balloon.Width / 2;
+    private static int _balloonY = Constants.FrameHeight / 2 - Texture.Balloon.Height / 2;
 
-    private static int _highest_position = _balloon_y - 1;
-    private static int _lowest_position = _balloon_y + Texture.Balloon.Height;
+    private static int _highestPosition = _balloonY - 1;
+    private static int _lowestPosition = _balloonY + Texture.Balloon.Height;
 
-    private static float _balloon_velocity = 0;
+    private static float _balloonVelocity = 0;
 
     public static void Start()
     {
         int frame = 0;
 
         while (!_failed) {
-            Execution.Wait(1000 / Constants.FrameRate);
+            var st = Stopwatch.StartNew();
+
             Jumper.Window.Fill(255);
 
-            if (Keyboard.IsKeyPressed(Constants.Updraft))
-                _balloon_velocity -= Constants.Lift;
+            if (Keyboard.IsKeyPressed(Constants.Updraft) && _balloonVelocity < 10)
+                _balloonVelocity -= Constants.Lift;
 
             if (frame % Constants.PhysicsRate == 0)
                 _runPhysics();
-            if (frame == Constants.FrameRate)
-                frame = 0;
 
             _setRecords();
             _drawAssets();
             Jumper.Window.PushToConsole();
+
+            Execution.Wait(Math.Abs((int)(1000 / Constants.FrameRate - st.ElapsedMilliseconds)));
+            st.Stop();
         }
     }
 
     private static void _runPhysics()
     {
-        _balloon_y = (int)Math.Floor(_balloon_y + _balloon_velocity);
+        _balloonY = (int)Math.Floor(_balloonY + _balloonVelocity);
 
-        if (_balloon_y < 1) {
-            _balloon_y = 1;
+        if (_balloonY < 1) {
+            _balloonY = 1;
             _failed = true;
         }
-        else if (_balloon_y + Texture.Balloon.Height >= Constants.FrameHeight) {
-            _balloon_y = Constants.FrameHeight - Texture.Balloon.Height - 1;
+        else if (_balloonY + Texture.Balloon.Height >= Constants.FrameHeight) {
+            _balloonY = Constants.FrameHeight - Texture.Balloon.Height - 1;
             _failed = true;
         }
 
-        if (_balloon_velocity < Constants.TerminalVel)
-            _balloon_velocity += Constants.Gravity;
+        if (_balloonVelocity < Constants.TerminalVel)
+            _balloonVelocity += Constants.Gravity;
     }
 
     private static void _drawAssets()
@@ -69,17 +73,17 @@ class GameLoop
         Jumper.Window.SetColumn(0, Constants.BorderColor);
         Jumper.Window.SetColumn(Constants.FrameWidth - 1, Constants.BorderColor);
 
-        Jumper.Window.SetRow(_highest_position, 200);
-        Jumper.Window.SetRow(_lowest_position, 200);
+        Jumper.Window.SetRow(_highestPosition, 200);
+        Jumper.Window.SetRow(_lowestPosition, 200);
 
-        Jumper.Window.DrawTexture(_balloon_x, _balloon_y, Texture.Balloon);
+        Jumper.Window.DrawTexture(_balloonX, _balloonY, Texture.Balloon);
     }
 
     private static void _setRecords()
     {
-        if (_balloon_y < _highest_position)
-            _highest_position = _balloon_y - 1;
-        if (_balloon_y + Texture.Balloon.Height > _lowest_position)
-            _lowest_position = _balloon_y + Texture.Balloon.Height;
+        if (_balloonY < _highestPosition)
+            _highestPosition = _balloonY - 1;
+        if (_balloonY + Texture.Balloon.Height > _lowestPosition)
+            _lowestPosition = _balloonY + Texture.Balloon.Height;
     }
 }

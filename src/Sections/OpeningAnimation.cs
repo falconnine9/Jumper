@@ -4,6 +4,8 @@
  * moving borders
  */
 
+using System.Diagnostics;
+
 using Jumper.Utils;
 
 namespace Jumper.Sections;
@@ -20,6 +22,8 @@ class OpeningAnimation
         int r_line = (int)Math.Round(Constants.FrameWidth / 1.5);
 
         while (true) {
+            var st = Stopwatch.StartNew();
+
             if (t_line > 0)
                 t_line -= 1;
 
@@ -41,10 +45,13 @@ class OpeningAnimation
             Jumper.Window.SetColumn(r_line, Constants.BorderColor);
 
             Jumper.Window.PushToConsole();
-            Execution.Wait(1000 / Constants.FrameRate);
+            Execution.Wait(Math.Abs((int)(1000 / Constants.FrameRate - st.ElapsedMilliseconds)));
+            st.Stop();
 
             if (t_line <= 0 && b_line >= Constants.FrameHeight - 1 && l_line <= 0 && r_line >= Constants.FrameWidth - 1)
-                return;
+                break;
         }
+
+        Keyboard.ResetKeyboardState();
     }
 }

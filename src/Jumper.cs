@@ -27,9 +27,9 @@
  * bullet, try to survive as long as possible
  */
 
+using Jumper.Gameloop;
 using Jumper.Graphics;
-using Jumper.Sections;
-using Jumper.Utils;
+using Jumper.StaticSections;
 
 namespace Jumper;
 
@@ -44,7 +44,7 @@ class Jumper
 
         InitialMessage.Start();
         OpeningAnimation.Start();
-        GameLoop.Start();
+        GameMain.Start();
     }
 
     private static void _setConsoleProperties() => Console.CursorVisible = false;

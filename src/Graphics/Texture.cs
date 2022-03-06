@@ -18,6 +18,7 @@ class Texture
 {
     public static Texture Balloon { get; } = ReadTextureFile("balloon.texture");
     public static Texture BulletLeft { get; } = ReadTextureFile("bullet-left.texture");
+    public static Texture BulletRight { get; } = ReadTextureFile("bullet-right.texture");
 
     public int Width { get; }
     public int Height { get; }

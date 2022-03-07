@@ -38,7 +38,7 @@ class Bullets
     {
         int direction = Jumper.RndGenerator.Next(0, 2);
         
-        int y_pos = Jumper.RndGenerator.Next(0, Constants.FrameHeight - Texture.BulletLeft.Height);
+        int y_pos = Jumper.RndGenerator.Next(1, Constants.FrameHeight - Texture.BulletLeft.Height);
         int x_pos = direction == 0
             ? -Texture.BulletLeft.Width
             : Constants.FrameWidth + Texture.BulletLeft.Width - 1;

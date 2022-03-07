@@ -7,6 +7,7 @@
 using System.Diagnostics;
 
 using Jumper.GameObjects;
+using Jumper.Graphics;
 using Jumper.Utils;
 
 namespace Jumper.Game;
@@ -57,6 +58,9 @@ class GameMain
             if (!_paused)
                 _frame++;
         }
+
+        Console.Beep();
+        _drawDeathScreen();
     }
 
     private static void _handleKeyPresses()
@@ -84,6 +88,20 @@ class GameMain
 
         foreach (Entity bullet in BulletList)
             Jumper.Window.DrawTexture(bullet.X, bullet.Y, bullet.Frame);
+
+        Jumper.Window.PushToConsole();
+    }
+
+    private static void _drawDeathScreen()
+    {
+        Jumper.Window.Fill(255);
+
+        Jumper.Window.SetRow(0, 0);
+        Jumper.Window.SetRow(Constants.FrameHeight - 1, 0);
+        Jumper.Window.SetColumn(0, 0);
+        Jumper.Window.SetColumn(Constants.FrameWidth - 1, 0);
+
+        Jumper.Window.DrawTexture(Player.X, Player.Y, Texture.BalloonBroken);
 
         Jumper.Window.PushToConsole();
     }

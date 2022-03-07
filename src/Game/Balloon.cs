@@ -25,8 +25,8 @@ class Balloon
         if (balloon.YVelocity != 0)
             balloon.Y = (int)Math.Floor(balloon.Y + balloon.YVelocity);
 
-        if (balloon.Y < 0) {
-            balloon.Y = 0;
+        if (balloon.Y <= 0) {
+            balloon.Y = 1;
             GameMain.Failed = true;
         }
         else if (balloon.Y2 >= Constants.FrameHeight) {

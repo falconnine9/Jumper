@@ -18,7 +18,7 @@ class GameMain
 
     public static bool Failed = false;
 
-    public static double BulletSpeed = 1;
+    public static double BulletSpeed = 2;
     public static int MaxBullets = 1;
 
     private static long _frame = 0;
@@ -38,7 +38,7 @@ class GameMain
                         BulletSpeed += Constants.BulletIncrement;
 
                     _bullet_nums += Constants.BulletIncrement / 2;
-                    if (_bullet_nums >= 1 && BulletList.Count < Constants.MaxBulletNum) {
+                    if (_bullet_nums >= MaxBullets && BulletList.Count < Constants.MaxBulletNum) {
                         _bullet_nums = 0;
                         MaxBullets += 1;
                     }

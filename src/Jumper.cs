@@ -25,6 +25,9 @@
  * 
  * Don't hit the edges of the map, don't get hit by a
  * bullet, try to survive as long as possible
+ * 
+ * A full guide on playing the game can be found in
+ * README.md
  */
 
 using Jumper.Game;

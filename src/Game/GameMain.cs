@@ -21,6 +21,7 @@ class GameMain
     public static double BulletSpeed = 2;
     public static int MaxBullets = 1;
 
+    private static bool _paused = false;
     private static long _frame = 0;
     private static double _bullet_nums = 0;
 
@@ -29,7 +30,7 @@ class GameMain
         while (!Failed) {
             var sw = Stopwatch.StartNew();
 
-            if (_frame % Constants.PhysicsRate == 0) {
+            if (_frame % Constants.PhysicsRate == 0 && !_paused) {
                 Balloon.EvaluateBalloonPhysics();
                 Bullets.EvaluateBulletPhysics();
 
@@ -52,13 +53,22 @@ class GameMain
 
             sw.Stop();
             Execution.Wait((int)(1000 / Constants.FrameRate - sw.ElapsedMilliseconds));
+
+            if (!_paused)
+                _frame++;
         }
     }
 
     private static void _handleKeyPresses()
     {
-        if (Keyboard.IsKeyPressed(Constants.Updraft))
+        if (Keyboard.IsKeyPressed(Constants.Updraft) && !_paused)
             Player.YVelocity -= Constants.Lift;
+
+        if (Keyboard.IsKeyPressed(Constants.Pause))
+            _paused = !_paused;
+
+        if (Keyboard.IsKeyPressed(Constants.Quit))
+            Failed = true;
     }
 
     private static void _drawAssets()

@@ -27,7 +27,7 @@
  * bullet, try to survive as long as possible
  */
 
-using Jumper.Gameloop;
+using Jumper.Game;
 using Jumper.Graphics;
 using Jumper.StaticSections;
 

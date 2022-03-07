@@ -33,4 +33,22 @@ class Entity
         XVelocity = xv;
         YVelocity = yv;
     }
+
+    public bool CollidingWith(Entity entity)
+    {
+        bool colliding_x = false;
+        bool colliding_y = false;
+
+        if (Frame.Width < entity.Frame.Width)
+            colliding_x = (X >= entity.X && X <= entity.X2) || (X2 >= entity.X && X2 <= entity.X2);
+        else if (Frame.Width >= entity.Frame.Width)
+            colliding_x = (entity.X >= X && entity.X <= X2) || (entity.X2 >= X && entity.X2 <= X2);
+
+        if (Frame.Height < entity.Frame.Height)
+            colliding_y = (Y >= entity.Y && Y <= entity.Y2) || (Y2 >= entity.Y && Y2 <= entity.Y2);
+        else if (Frame.Height >= entity.Frame.Height)
+            colliding_y = (entity.Y >= Y && entity.Y <= Y2) || (entity.Y2 >= Y && entity.Y2 <= Y2);
+
+        return colliding_x && colliding_y;
+    }
 }

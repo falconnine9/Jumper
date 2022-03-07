@@ -23,6 +23,11 @@ class Bullets
                 to_destroy.Add(bullet);
             else if (bullet.X >= Constants.FrameWidth && bullet.Right)
                 to_destroy.Add(bullet);
+
+            if (bullet.CollidingWith(GameMain.Player)) {
+                GameMain.Failed = true;
+                return;
+            }
         }
 
         foreach (Entity bullet in to_destroy)
@@ -38,7 +43,7 @@ class Bullets
             ? -Texture.BulletLeft.Width
             : Constants.FrameWidth + Texture.BulletLeft.Width - 1;
 
-        int velocity = (int)Math.Floor(direction == 0 ? GameMain.BulletSpeed : -GameMain.BulletSpeed);
+        int velocity = (int)Math.Floor(GameMain.BulletSpeed) * (direction == 0 ? 1 : -1);
         Texture texture = direction == 0 ? Texture.BulletRight : Texture.BulletLeft;
 
         return new Entity(texture, x_pos, y_pos, velocity, 0);

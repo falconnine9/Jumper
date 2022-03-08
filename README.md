@@ -24,3 +24,4 @@ At any point, if you get hit by a bullet or hit any border, you lose the game.
 | W     | Balloon updraft       |
 | R     | Pause/Unpause         |
 | T     | Quit                  |
+| B     | Restart after death   |

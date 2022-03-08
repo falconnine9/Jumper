@@ -41,14 +41,37 @@ class Jumper
     public static ConsoleFrame Window { get; } = new(Constants.FrameWidth, Constants.FrameHeight);
     public static Random RndGenerator { get; } = new Random();
 
+    public static bool Quit = false;
+
     public static void Main()
     {
         _setConsoleProperties();
-
         InitialMessage.Start();
-        OpeningAnimation.Start();
-        GameMain.Start();
+
+        while (!Quit) {
+            OpeningAnimation.Start();
+            GameMain.Start();
+
+            if (Quit)
+                return;
+
+            while (true) {
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                if (key.Key == Constants.Quit) {
+                    Quit = true;
+                    return;
+                }
+                else if (key.Key == Constants.Restart) {
+                    GameMain.Reset();
+                    break;
+                }
+            }
+        }
     }
 
-    private static void _setConsoleProperties() => Console.CursorVisible = false;
+    private static void _setConsoleProperties() =>
+#if _WIN32
+        Console.CursorVisible = false;
+#endif
+
 }

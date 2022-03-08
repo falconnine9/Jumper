@@ -14,8 +14,8 @@ namespace Jumper.Game;
 
 class GameMain
 {
-    public static readonly Entity Player = Balloon.MakeBalloon();
-    public static readonly List<Entity> BulletList = new();
+    public static Entity Player { get; private set; } = Balloon.MakeBalloon();
+    public static List<Entity> BulletList { get; private set; } = new();
 
     public static bool Failed = false;
 
@@ -50,7 +50,7 @@ class GameMain
             }
 
             _handleKeyPresses();
-            _drawAssets();
+            Drawing.DrawAssets();
 
             sw.Stop();
             Execution.Wait((int)(1000 / Constants.FrameRate - sw.ElapsedMilliseconds));
@@ -60,7 +60,22 @@ class GameMain
         }
 
         Console.Beep();
-        _drawDeathScreen();
+        Drawing.DrawDeathScreen();
+    }
+
+    public static void Reset()
+    {
+        Player = Balloon.MakeBalloon();
+        BulletList = new();
+
+        Failed = false;
+
+        BulletSpeed = 2;
+        MaxBullets = 1;
+
+        _paused = false;
+        _frame = 0;
+        _bullet_nums = 0;
     }
 
     private static void _handleKeyPresses()
@@ -71,38 +86,9 @@ class GameMain
         if (Keyboard.IsKeyPressed(Constants.Pause))
             _paused = !_paused;
 
-        if (Keyboard.IsKeyPressed(Constants.Quit))
+        if (Keyboard.IsKeyPressed(Constants.Quit)) {
             Failed = true;
-    }
-
-    private static void _drawAssets()
-    {
-        Jumper.Window.Fill(255);
-
-        Jumper.Window.SetRow(0, 0);
-        Jumper.Window.SetRow(Constants.FrameHeight - 1, 0);
-        Jumper.Window.SetColumn(0, 0);
-        Jumper.Window.SetColumn(Constants.FrameWidth - 1, 0);
-
-        Jumper.Window.DrawTexture(Player.X, Player.Y, Player.Frame);
-
-        foreach (Entity bullet in BulletList)
-            Jumper.Window.DrawTexture(bullet.X, bullet.Y, bullet.Frame);
-
-        Jumper.Window.PushToConsole();
-    }
-
-    private static void _drawDeathScreen()
-    {
-        Jumper.Window.Fill(255);
-
-        Jumper.Window.SetRow(0, 0);
-        Jumper.Window.SetRow(Constants.FrameHeight - 1, 0);
-        Jumper.Window.SetColumn(0, 0);
-        Jumper.Window.SetColumn(Constants.FrameWidth - 1, 0);
-
-        Jumper.Window.DrawTexture(Player.X, Player.Y, Texture.BalloonBroken);
-
-        Jumper.Window.PushToConsole();
+            Jumper.Quit = true;
+        }
     }
 }

@@ -25,4 +25,5 @@ class Constants
     public static readonly ConsoleKey Updraft = ConsoleKey.W;
     public static readonly ConsoleKey Pause = ConsoleKey.R;
     public static readonly ConsoleKey Quit = ConsoleKey.T;
+    public static readonly ConsoleKey Restart = ConsoleKey.B;
 }

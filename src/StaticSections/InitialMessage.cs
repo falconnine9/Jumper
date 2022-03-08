@@ -33,9 +33,9 @@ class InitialMessage
                 Console.SetCursorPosition(0, 0);
                 Console.WriteLine(
                     "Please set your console font size to 5 and put it in full screen. " +
-                    "Press space once you're ready. " +
-                    "Once the game has ended, you may have to resize it back to 16 " +
-                    "to be able to see your results"
+                    "Press space once you're ready.\n\n" +
+                    "If you fail, you can press B to restart the game, " +
+                    "or just press T to quit"
                 );
             }
 

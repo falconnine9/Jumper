@@ -29,7 +29,7 @@ namespace Jumper.Graphics;
 
 partial class ConsoleFrame // ConsoleFrame.Main
 {
-    private static string _scale = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?+-~i!Il;:,^.' ";
+    public static string Scale = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?+-~i!Il;:,^.' ";
 
     public int Width { get => _width; set => _resizeFrame(value, _height); }
     public int Height { get => _height; set => _resizeFrame(_width, value); }
@@ -67,7 +67,7 @@ partial class ConsoleFrame // ConsoleFrame.Main
 
         for (int y = 0; y < _height; y++) {
             for (int x = 0; x < _width; x++) {
-                _ = buffer.Append(_scale[Get(x, y) >> 2]);
+                _ = buffer.Append(Scale[Get(x, y) >> 2]);
             }
             _ = buffer.Append('\n');
         }

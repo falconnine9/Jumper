@@ -37,23 +37,13 @@ class Texture
     public static Texture ReadTextureFile(string file)
     {
         string[] lines = File.ReadAllLines(Directory.GetCurrentDirectory() + "/textures/" + file);
-
         List<byte[]> matrix = new();
-        StringBuilder builder = new();
 
         foreach (string line in lines) {
             List<byte> buffer = new();
 
-            foreach (char c in line) {
-                if (c == ',') {
-                    buffer.Add(byte.Parse(builder.ToString()));
-                    builder = builder.Clear();
-                }
-                else if (c == ' ')
-                    continue;
-                else
-                    _ = builder.Append(c);
-            }
+            foreach (char c in line)
+                buffer.Add((byte)(ConsoleFrame.Scale.IndexOf(c) << 2));
 
             matrix.Add(buffer.ToArray());
         }

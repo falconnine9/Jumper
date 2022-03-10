@@ -58,8 +58,7 @@ class GameMain
             if (!_paused)
                 _frame++;
         }
-
-        Console.Beep();
+        
         Drawing.DrawDeathScreen();
     }
 
@@ -80,6 +79,8 @@ class GameMain
 
     private static void _handleKeyPresses()
     {
+        Keyboard.GetState();
+
         if (Keyboard.IsKeyPressed(Constants.Updraft) && !_paused)
             Player.YVelocity -= Constants.Lift;
 

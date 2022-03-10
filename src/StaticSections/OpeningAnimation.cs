@@ -52,6 +52,6 @@ class OpeningAnimation
                 break;
         }
 
-        Keyboard.ResetKeyboardState();
+        Keyboard.ClearKeyBuffer();
     }
 }

@@ -34,11 +34,16 @@ class InitialMessage
                 Console.WriteLine(
                     "Please set your console font size to 5 and put it in full screen. " +
                     "Press space once you're ready.\n\n" +
+                    
                     "If you fail, you can press B to restart the game, " +
-                    "or just press T to quit"
+                    "or just press T to quit.\n\n" +
+
+                    "A guide for playing the game can be found in the README.md on " +
+                    "the github."
                 );
             }
 
+            Keyboard.GetState();
             if (Keyboard.IsKeyPressed(ConsoleKey.Spacebar)) {
                 Console.ForegroundColor = ConsoleColor.White;
                 break;
@@ -47,6 +52,6 @@ class InitialMessage
             iteration++;
         }
 
-        Keyboard.ResetKeyboardState();
+        Keyboard.ClearKeyBuffer();
     }
 }

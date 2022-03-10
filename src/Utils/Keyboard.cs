@@ -8,31 +8,27 @@ namespace Jumper.Utils;
 
 class Keyboard
 {
-    private static List<ConsoleKeyInfo> _inputPoll = new();
+    private static List<ConsoleKey> _statePoll = new();
 
-    public static bool IsKeyPressed(ConsoleKey key_num)
+    public static bool IsKeyPressed(ConsoleKey k)
     {
-        while (Console.KeyAvailable) {
-            ConsoleKeyInfo key = Console.ReadKey(true);
-            if (key.Key == key_num)
+        foreach (ConsoleKey key in _statePoll) {
+            if (k == key)
                 return true;
-            else
-                _inputPoll.Add(key);
         }
-
-        foreach (ConsoleKeyInfo key in _inputPoll) {
-            if (key.Key == key_num) {
-                _ = _inputPoll.Remove(key);
-                return true;
-            }
-        }
-
         return false;
     }
 
-    public static void ResetKeyboardState()
+    public static void GetState()
     {
-        _inputPoll.Clear();
+        _statePoll.Clear();
+
+        while (Console.KeyAvailable)
+            _statePoll.Add(Console.ReadKey(true).Key);
+    }
+
+    public static void ClearKeyBuffer()
+    {
         while (Console.KeyAvailable)
             _ = Console.ReadKey(true);
     }

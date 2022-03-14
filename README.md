@@ -18,10 +18,9 @@ At any point, if you get hit by a bullet or hit any border, you lose the game.
 (I'm not able to set the console font in source, without invoking win32 methods which only work on windows and are like black magic).
 
 ## Controls
-| Key   | Purpose               |
-|:-----:|:---------------------:|
-| Space | Skip the first screen |
-| W     | Balloon updraft       |
-| R     | Pause/Unpause         |
-| T     | Quit                  |
-| B     | Restart after death   |
+| Key      | Purpose                            |
+|:--------:|:----------------------------------:|
+| Space    | Skip screen or restart after death |
+| Up Arrow | Balloon updraft                    |
+| Esc      | Pause/Unpause                      |
+| Q        | Quit                               |

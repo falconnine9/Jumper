@@ -7,7 +7,6 @@
 using System.Diagnostics;
 
 using Jumper.GameObjects;
-using Jumper.Graphics;
 using Jumper.Utils;
 
 namespace Jumper.Game;
@@ -26,7 +25,7 @@ class GameMain
 
     private static bool _paused = false;
     private static long _frame = 0;
-    private static double _bullet_nums = 0;
+    private static double _bulletNumInc = 0;
 
     public static void Start()
     {
@@ -37,21 +36,8 @@ class GameMain
                 Balloon.EvaluateBalloonPhysics();
                 Bullets.EvaluateBulletPhysics();
 
-                while (BulletList.Count < MaxBullets) {
-                    if (BulletSpeed < Constants.TerminalVel)
-                        BulletSpeed += Constants.BulletIncrement;
-
-                    _bullet_nums += Constants.BulletIncrement / 2;
-                    if (_bullet_nums >= MaxBullets && BulletList.Count < Constants.MaxBulletNum) {
-                        _bullet_nums = 0;
-                        MaxBullets += 1;
-                    }
-
-                    BulletList.Add(Bullets.MakeNewBullet());
-
-                    if (Score < 999)
-                        Score++;
-                }
+                while (BulletList.Count < MaxBullets)
+                    Bullets.HandleBulletStages(ref _bulletNumInc);
             }
 
             _handleKeyPresses();
@@ -81,7 +67,7 @@ class GameMain
 
         _paused = false;
         _frame = 0;
-        _bullet_nums = 0;
+        _bulletNumInc = 0;
     }
 
     private static void _handleKeyPresses()

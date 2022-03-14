@@ -34,6 +34,23 @@ class Bullets
             _ = GameMain.BulletList.Remove(bullet);
     }
 
+    public static void HandleBulletStages(ref double increment)
+    {
+        if (GameMain.BulletSpeed < Constants.TerminalVel)
+            GameMain.BulletSpeed += Constants.BulletIncrement;
+
+        increment += Constants.BulletIncrement / 2;
+        if (increment >= GameMain.MaxBullets && GameMain.BulletList.Count < Constants.MaxBulletNum) {
+            increment = 0;
+            GameMain.MaxBullets += 1;
+        }
+
+        GameMain.BulletList.Add(MakeNewBullet());
+
+        if (GameMain.Score < 999)
+            GameMain.Score++;
+    }
+
     public static Entity MakeNewBullet()
     {
         int direction = Jumper.RndGenerator.Next(0, 2);

@@ -26,8 +26,8 @@ class Constants
     public static readonly int MaxBulletNum = 5;         // Max number of bullets
     public static readonly double BulletIncrement = 0.2; // Increment of bullet speed each iteration
 
-    public static readonly ConsoleKey Updraft = ConsoleKey.W;
-    public static readonly ConsoleKey Pause = ConsoleKey.R;
-    public static readonly ConsoleKey Quit = ConsoleKey.T;
-    public static readonly ConsoleKey Restart = ConsoleKey.B;
+    public static readonly ConsoleKey Updraft = ConsoleKey.UpArrow;
+    public static readonly ConsoleKey Pause = ConsoleKey.Escape;
+    public static readonly ConsoleKey Quit = ConsoleKey.Q;
+    public static readonly ConsoleKey Restart = ConsoleKey.Spacebar;
 }

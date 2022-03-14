@@ -29,24 +29,14 @@ class Drawing
     {
         Jumper.Window.Fill(255);
 
-        Jumper.Window.SetRow(0, 0);
-        Jumper.Window.SetRow(Constants.FrameHeight - 1, 0);
-        Jumper.Window.SetColumn(0, 0);
-        Jumper.Window.SetColumn(Constants.FrameWidth - 1, 0);
-
         Jumper.Window.DrawTexture(GameMain.Player.X, GameMain.Player.Y, GameMain.Player.Frame);
 
         foreach (Entity bullet in GameMain.BulletList)
             Jumper.Window.DrawTexture(bullet.X, bullet.Y, bullet.Frame);
 
-        string score_str = GameMain.Score.ToString();
-        for (int i = 0; i < score_str.Length; i++) {
-            File.WriteAllText("txt.txt", (Constants.FrameWidth + Constants.NumWidth * i + i + 1).ToString());
-            Jumper.Window.DrawTexture(
-                Constants.FrameWidth + Constants.NumWidth * i + i + 6,
-                2, _numbers[score_str[i] - 48], false
-            );
-        }
+        _drawBorders();
+        _drawScore(2, GameMain.Score);
+        _drawScore(20, Jumper.HighScore > GameMain.Score ? Jumper.HighScore : GameMain.Score);
 
         Jumper.Window.PushToConsole();
     }
@@ -55,13 +45,32 @@ class Drawing
     {
         Jumper.Window.Fill(255);
 
+        Jumper.Window.DrawTexture(GameMain.Player.X, GameMain.Player.Y, Texture.BalloonBroken);
+
+        _drawBorders();
+        _drawScore(2, GameMain.Score);
+        _drawScore(20, Jumper.HighScore > GameMain.Score ? Jumper.HighScore : GameMain.Score);
+
+        Jumper.Window.PushToConsole();
+    }
+
+    private static void _drawBorders()
+    {
         Jumper.Window.SetRow(0, 0);
         Jumper.Window.SetRow(Constants.FrameHeight - 1, 0);
         Jumper.Window.SetColumn(0, 0);
         Jumper.Window.SetColumn(Constants.FrameWidth - 1, 0);
+    }
 
-        Jumper.Window.DrawTexture(GameMain.Player.X, GameMain.Player.Y, Texture.BalloonBroken);
-
-        Jumper.Window.PushToConsole();
+    private static void _drawScore(int y, int score)
+    {
+        string score_str = score.ToString();
+        for (int i = 0; i < score_str.Length; i++) {
+            File.WriteAllText("txt.txt", (Constants.FrameWidth + Constants.NumWidth * i + i + 1).ToString());
+            Jumper.Window.DrawTexture(
+                Constants.FrameWidth + Constants.NumWidth * i + i + 6,
+                y, _numbers[score_str[i] - 48], false
+            );
+        }
     }
 }

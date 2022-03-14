@@ -40,12 +40,17 @@ class Jumper
 {
     public static ConsoleFrame Window { get; } = new(Constants.FrameWidth, Constants.FrameHeight);
     public static Random RndGenerator { get; } = new Random();
-
+    
+    public static int HighScore = 0;
     public static bool Quit = false;
+
+    private static string _appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Jumper";
 
     public static void Main()
     {
+        _initialAppDataSequence();
         _setConsoleProperties();
+
         InitialMessage.Start();
 
         while (!Quit) {
@@ -53,6 +58,11 @@ class Jumper
 
             Window.Width = Constants.FrameWidth + Constants.NumWidth * Constants.MaxNums + Constants.MaxNums + 6;
             GameMain.Start();
+
+            if (GameMain.Score > HighScore) {
+                HighScore = GameMain.Score;
+                File.WriteAllText(_appDataPath + "/high-score.txt", HighScore.ToString());
+            }
 
             if (Quit)
                 return;
@@ -70,6 +80,22 @@ class Jumper
             }
 
             Window.Width = Constants.FrameWidth;
+        }
+    }
+
+    private static void _initialAppDataSequence()
+    {
+        if (!Directory.Exists(_appDataPath))
+            _ = Directory.CreateDirectory(_appDataPath);
+
+        string path = _appDataPath + "/high-score.txt";
+        if (File.Exists(path)) {
+            string file_value = File.ReadAllText(path);
+
+            if (!int.TryParse(file_value, out HighScore)) {
+                Console.Error.WriteLine("High score file has been modified and cannot be read");
+                return;
+            }
         }
     }
 

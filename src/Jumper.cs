@@ -50,6 +50,8 @@ class Jumper
 
         while (!Quit) {
             OpeningAnimation.Start();
+
+            Window.Width = Constants.FrameWidth + Constants.NumWidth * Constants.MaxNums + Constants.MaxNums + 6;
             GameMain.Start();
 
             if (Quit)
@@ -66,6 +68,8 @@ class Jumper
                     break;
                 }
             }
+
+            Window.Width = Constants.FrameWidth;
         }
     }
 

@@ -37,7 +37,7 @@ class Bullets
     public static Entity MakeNewBullet()
     {
         int direction = Jumper.RndGenerator.Next(0, 2);
-        
+
         int y_pos = Jumper.RndGenerator.Next(1, Constants.FrameHeight - Texture.BulletLeft.Height);
         int x_pos = direction == 0
             ? -Texture.BulletLeft.Width

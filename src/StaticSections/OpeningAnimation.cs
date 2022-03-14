@@ -16,10 +16,10 @@ class OpeningAnimation
     {
         Console.Clear();
 
-        int t_line = Constants.FrameHeight / 3;
-        int l_line = Constants.FrameWidth / 3;
-        int b_line = (int)Math.Round(Constants.FrameHeight / 1.5);
-        int r_line = (int)Math.Round(Constants.FrameWidth / 1.5);
+        int t_line = Constants.AnimationDiff;
+        int l_line = Constants.AnimationDiff;
+        int b_line = Constants.FrameHeight - Constants.AnimationDiff;
+        int r_line = Constants.FrameWidth - Constants.AnimationDiff;
 
         while (true) {
             var st = Stopwatch.StartNew();

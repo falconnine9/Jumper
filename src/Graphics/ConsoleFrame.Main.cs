@@ -61,6 +61,14 @@ partial class ConsoleFrame // ConsoleFrame.Main
             _frame[y * _width + x] = value;
     }
 
+    public void SetSafe(int x, int y, byte value)
+    {
+        if (x < 0 || y < 0 || x >= Constants.FrameWidth || y >= Constants.FrameHeight)
+            return;
+        else
+            _frame[y * _width + x] = value;
+    }
+
     public void PushToConsole()
     {
         StringBuilder buffer = new();

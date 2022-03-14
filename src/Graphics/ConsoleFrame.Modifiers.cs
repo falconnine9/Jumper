@@ -23,7 +23,7 @@ partial class ConsoleFrame // ConsoleFrame.Modifiers
             return;
 
         for (int x = 0; x < _width; x++) {
-            Set(x, y, value);
+            SetSafe(x, y, value);
         }
     }
 
@@ -33,7 +33,7 @@ partial class ConsoleFrame // ConsoleFrame.Modifiers
             return;
 
         for (int y = 0; y < _height; y++) {
-            Set(x, y, value);
+            SetSafe(x, y, value);
         }
     }
 
@@ -41,16 +41,19 @@ partial class ConsoleFrame // ConsoleFrame.Modifiers
     {
         for (int y = settings.Y; y < settings.Y + settings.Height; y++) {
             for (int x = settings.X; x < settings.X + settings.Width; x++) {
-                Set(x, y, settings.Color);
+                SetSafe(x, y, settings.Color);
             }
         }
     }
 
-    public void DrawTexture(int x, int y, Texture texture)
+    public void DrawTexture(int x, int y, Texture texture, bool safe = true)
     {
         for (int i = y; i < y + texture.Height; i++) {
             for (int j = x; j < x + texture.Width; j++) {
-                Set(j, i, texture.Frame[i - y][j - x]);
+                if (safe)
+                    SetSafe(j, i, texture.Frame[i - y][j - x]);
+                else
+                    Set(j, i, texture.Frame[i - y][j - x]);
             }
         }
     }

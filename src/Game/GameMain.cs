@@ -22,6 +22,8 @@ class GameMain
     public static double BulletSpeed = 2;
     public static int MaxBullets = 1;
 
+    public static int Score = 0;
+
     private static bool _paused = false;
     private static long _frame = 0;
     private static double _bullet_nums = 0;
@@ -46,6 +48,9 @@ class GameMain
                     }
 
                     BulletList.Add(Bullets.MakeNewBullet());
+
+                    if (Score < 999)
+                        Score++;
                 }
             }
 
@@ -71,6 +76,8 @@ class GameMain
 
         BulletSpeed = 2;
         MaxBullets = 1;
+
+        Score = 0;
 
         _paused = false;
         _frame = 0;

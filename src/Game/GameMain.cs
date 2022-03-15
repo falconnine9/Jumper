@@ -22,8 +22,8 @@ class GameMain
     public static int MaxBullets = 1;
 
     public static int Score = 0;
+    public static bool Paused = false;
 
-    private static bool _paused = false;
     private static long _frame = 0;
     private static double _bulletNumInc = 0;
 
@@ -32,7 +32,7 @@ class GameMain
         while (!Failed) {
             var sw = Stopwatch.StartNew();
 
-            if (_frame % Constants.PhysicsRate == 0 && !_paused) {
+            if (_frame % Constants.PhysicsRate == 0 && !Paused) {
                 Balloon.EvaluateBalloonPhysics();
                 Bullets.EvaluateBulletPhysics();
 
@@ -46,7 +46,7 @@ class GameMain
             sw.Stop();
             Execution.Wait((int)(1000 / Constants.FrameRate - sw.ElapsedMilliseconds));
 
-            if (!_paused)
+            if (!Paused)
                 _frame++;
         }
         
@@ -65,7 +65,7 @@ class GameMain
 
         Score = 0;
 
-        _paused = false;
+        Paused = false;
         _frame = 0;
         _bulletNumInc = 0;
     }
@@ -74,11 +74,11 @@ class GameMain
     {
         Keyboard.GetState();
 
-        if (Keyboard.IsKeyPressed(Constants.Updraft) && !_paused)
+        if (Keyboard.IsKeyPressed(Constants.Updraft) && !Paused)
             Player.YVelocity -= Constants.Lift;
 
         if (Keyboard.IsKeyPressed(Constants.Pause))
-            _paused = !_paused;
+            Paused = !Paused;
 
         if (Keyboard.IsKeyPressed(Constants.Quit)) {
             Failed = true;

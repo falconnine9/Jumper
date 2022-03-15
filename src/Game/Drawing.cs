@@ -38,6 +38,12 @@ class Drawing
         _drawScore(2, GameMain.Score);
         _drawScore(20, Jumper.HighScore > GameMain.Score ? Jumper.HighScore : GameMain.Score);
 
+        if (GameMain.Paused) {
+            int x = Constants.FrameWidth / 2 - Texture.Paused.Width / 2;
+            int y = Constants.FrameHeight / 2 - Texture.Paused.Height / 2;
+            Jumper.Window.DrawTexture(x, y, Texture.Paused);
+        }
+
         Jumper.Window.PushToConsole();
     }
 
@@ -66,7 +72,6 @@ class Drawing
     {
         string score_str = score.ToString();
         for (int i = 0; i < score_str.Length; i++) {
-            File.WriteAllText("txt.txt", (Constants.FrameWidth + Constants.NumWidth * i + i + 1).ToString());
             Jumper.Window.DrawTexture(
                 Constants.FrameWidth + Constants.NumWidth * i + i + 6,
                 y, _numbers[score_str[i] - 48], false

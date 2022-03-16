@@ -57,6 +57,10 @@ class Drawing
         _drawScore(2, GameMain.Score);
         _drawScore(20, Jumper.HighScore > GameMain.Score ? Jumper.HighScore : GameMain.Score);
 
+        int x = Constants.FrameWidth / 2 - Texture.Dead.Width / 2;
+        int y = Constants.FrameHeight / 2 - Texture.Dead.Height / 2;
+        Jumper.Window.DrawTexture(x, y, Texture.Dead);
+
         Jumper.Window.PushToConsole();
     }
 

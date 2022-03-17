@@ -31,8 +31,8 @@
  */
 
 using Jumper.Game;
-using Jumper.Graphics;
 using Jumper.StaticSections;
+using Jumper.UI;
 
 namespace Jumper;
 
@@ -94,6 +94,7 @@ class Jumper
 
             if (!int.TryParse(file_value, out HighScore)) {
                 Console.Error.WriteLine("High score file has been modified and cannot be read");
+                Console.Beep();
                 return;
             }
         }

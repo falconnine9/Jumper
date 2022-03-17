@@ -4,7 +4,7 @@
  * throughout the game. Like bullets and the balloon
  */
 
-using Jumper.Graphics;
+using Jumper.UI;
 
 namespace Jumper.GameObjects;
 

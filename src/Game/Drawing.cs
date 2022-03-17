@@ -5,7 +5,9 @@
  */
 
 using Jumper.GameObjects;
-using Jumper.Graphics;
+using Jumper.UI;
+
+using System.Diagnostics;
 
 namespace Jumper.Game;
 

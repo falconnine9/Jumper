@@ -36,8 +36,10 @@ class GameMain
                 Balloon.EvaluateBalloonPhysics();
                 Bullets.EvaluateBulletPhysics();
 
-                while (BulletList.Count < MaxBullets)
-                    Bullets.HandleBulletStages(ref _bulletNumInc);
+                if (BulletList.Count == 0) {
+                    while (BulletList.Count < MaxBullets)
+                        Bullets.HandleBulletStages(ref _bulletNumInc);
+                }
             }
 
             _handleKeyPresses();

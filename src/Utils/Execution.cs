@@ -13,9 +13,7 @@ class Execution
     public static void Wait(int ms)
     {
         var sw = Stopwatch.StartNew();
-        while (true) {
-            if (sw.ElapsedMilliseconds >= ms)
-                return;
-        }
+        while (sw.ElapsedMilliseconds < ms)
+            Thread.Sleep(1);
     }
 }

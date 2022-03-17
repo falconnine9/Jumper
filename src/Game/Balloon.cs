@@ -5,7 +5,7 @@
  */
 
 using Jumper.GameObjects;
-using Jumper.Graphics;
+using Jumper.UI;
 
 namespace Jumper.Game;
 

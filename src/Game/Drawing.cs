@@ -7,12 +7,12 @@
 using Jumper.GameObjects;
 using Jumper.UI;
 
-using System.Diagnostics;
-
 namespace Jumper.Game;
 
 class Drawing
 {
+    private static bool _pausedTextureDrawn = false; // To indicated whether or not the paused texture has been drawn while the game is paused
+
     private static Texture[] _numbers = new Texture[]
     {
         Texture.ReadTextureFile("numbers/0.texture"),
@@ -29,21 +29,30 @@ class Drawing
 
     public static void DrawAssets()
     {
-        Jumper.Window.Fill(255);
-
-        Jumper.Window.DrawTexture(GameMain.Player.X, GameMain.Player.Y, GameMain.Player.Frame);
-
-        foreach (Entity bullet in GameMain.BulletList)
-            Jumper.Window.DrawTexture(bullet.X, bullet.Y, bullet.Frame);
-
-        _drawBorders();
-        _drawScore(2, GameMain.Score);
-        _drawScore(20, Jumper.HighScore > GameMain.Score ? Jumper.HighScore : GameMain.Score);
-
         if (GameMain.Paused) {
-            int x = Constants.FrameWidth / 2 - Texture.Paused.Width / 2;
-            int y = Constants.FrameHeight / 2 - Texture.Paused.Height / 2;
-            Jumper.Window.DrawTexture(x, y, Texture.Paused);
+            if (!_pausedTextureDrawn) {
+                int x = Constants.FrameWidth / 2 - Texture.Paused.Width / 2;
+                int y = Constants.FrameHeight / 2 - Texture.Paused.Height / 2;
+                Jumper.Window.DrawTexture(x, y, Texture.Paused);
+
+                _pausedTextureDrawn = true;
+            }
+        }
+        else {
+            if (_pausedTextureDrawn)
+                _pausedTextureDrawn = false;
+
+            Jumper.Window.Fill(255);
+
+            Jumper.Window.DrawTexture(GameMain.Player.X, GameMain.Player.Y, GameMain.Player.Frame);
+
+            foreach (Entity bullet in GameMain.BulletList) {
+                Jumper.Window.DrawTexture(bullet.X, bullet.Y, bullet.Frame);
+            }
+
+            _drawBorders();
+            _drawScore(2, GameMain.Score);
+            _drawScore(20, Jumper.HighScore > GameMain.Score ? Jumper.HighScore : GameMain.Score);
         }
 
         Jumper.Window.PushToConsole();

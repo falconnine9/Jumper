@@ -100,9 +100,10 @@ class Jumper
         }
     }
 
-    private static void _setConsoleProperties() =>
+    private static void _setConsoleProperties()
+    {
 #if _WIN32
-        Console.CursorVisible = false;
+            Console.CursorVisible = false;
 #endif
-
+    }
 }

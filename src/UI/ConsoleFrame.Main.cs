@@ -38,14 +38,11 @@ partial class ConsoleFrame // ConsoleFrame.Main
     private int _height;
     private byte[] _frame;
 
-    private StringBuilder _buffer;
-
     public ConsoleFrame(int width, int height)
     {
         _width = width;
         _height = height;
         _frame = new byte[width * height];
-        _buffer = new(width * (height + 1));
     }
 
     public byte Get(int x, int y)
@@ -74,19 +71,17 @@ partial class ConsoleFrame // ConsoleFrame.Main
 
     public void PushToConsole()
     {
-        int i = 0;
+        var buffer = new StringBuilder(_height * (_width + 1));
 
         for (int y = 0; y < _height; y++) {
             for (int x = 0; x < _width; x++) {
-                _buffer[i] = Scale[Get(x, y) >> 2];
-                i++;
+                _ = buffer.Append(Scale[Get(x, y) >> 2]);
             }
-            _buffer[i] = '\n';
-            i++;
+            _ = buffer.Append('\n');
         }
 
         Console.SetCursorPosition(0, 0);
-        Console.Write(_buffer.ToString());
+        Console.Write(buffer.ToString());
     }
 
     private void _resizeFrame(int width, int height)

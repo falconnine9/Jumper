@@ -24,8 +24,8 @@ class GameMain
     public static int Score = 0;
     public static bool Paused = false;
 
-    private static long _frame = 0;
-    private static double _bulletNumInc = 0;
+    private static long _frame = 0;          // The current frame ID (for interval based systems like physics)
+    private static double _bulletNumInc = 0; // The incrementer for bullets (when it reaches 1, max bullet numbers are incremented)
 
     public static void Start()
     {
